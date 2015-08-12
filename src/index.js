@@ -189,7 +189,7 @@ export default function acl(spec) {
   }
 
   /**
-   * Test wheter a given parameter is of type object and has a constructor
+   * Test whether a given parameter is of type object and has a constructor
    * of ObjectID
    * @param {*} obj
    * @returns {Boolean}
@@ -256,12 +256,11 @@ export default function acl(spec) {
 
   /**
    * Is role with privilege allowed to access resource
-   * @param {User} user
    * @param {Object} role
    * @param {String} [privilege='R']
    * @returns {Boolean} True if allowed, otherwise false
    */
-  function resource(user, role, privilege = 'R') {
+  function resource(role, privilege = 'R') {
     if (!settings.resource) {
       return false
     }
