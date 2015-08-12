@@ -1,0 +1,47 @@
+{
+  "name": "netiam-oauth",
+  "description": "An implementation of the OAuth 2.0 authorization framework",
+  "main": "index.js",
+  "scripts": {
+    "build": "./bin/build",
+    "clean": "./bin/clean",
+    "lint": "./bin/lint",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "start": "npm run watch",
+    "test": "npm run test:unit",
+    "test:unit": "mocha",
+    "test:coverage": "istanbul cover _mocha --report lcovonly -- -R spec",
+    "watch": "./bin/watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/netiam/acl.git"
+  },
+  "keywords": [
+    "ACL",
+    "Authorization",
+    "Server"
+  ],
+  "author": "Hannes Moser <hannes@impossiblearts.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/netiam/acl/issues"
+  },
+  "homepage": "https://github.com/netiam/acl#readme",
+  "devDependencies": {
+    "babel": "^5.8.9",
+    "babel-eslint": "^4.0.5",
+    "codeclimate-test-reporter": "^0.1.0",
+    "eslint": "^0.24.1",
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
+    "semantic-release": "^4.0.0",
+    "should": "^7.0.2"
+  },
+  "dependencies": {
+    "babel-runtime": "^5.8.9",
+    "debug": "^2.2.0",
+    "lodash": "^3.10.0",
+    "netiam-errors": "^1.0.0"
+  }
+}
