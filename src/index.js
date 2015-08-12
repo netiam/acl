@@ -1,15 +1,19 @@
 import _ from 'lodash'
-import roles from './roles'
 
 export default function acl(spec) {
   const WILDCARD = '*'
   const ALLOW = 'ALLOW'
   const DENY = 'DENY'
   const {settings} = spec
+  const {roles} = spec
   let o = {}
 
   if (!settings) {
-    throw new Error('You must provide an ACL "settings" option')
+    throw new Error('You must provide ACL "settings"')
+  }
+
+  if (!roles) {
+    throw new Error('You must provide a "roles" option')
   }
 
   /**
