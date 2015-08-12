@@ -1,11 +1,9 @@
-describe('OAuth', () => {
-
-  describe('middleware', () => {
+describe('ACL', () => {
+  describe('resource', () => {
 
     it('should setup tests', (done) => {
       done()
     })
 
   })
-
 })
