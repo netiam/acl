@@ -1,26 +1,27 @@
 sudo: false
 language: node_js
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
 cache:
   directories:
     - node_modules
-deploy:
-  provider: npm
-  email: hannes@impossiblearts.com
-  skip_cleanup: true
-  api_key:
-    secure: JVhlHd54xgvDx1ZWeqW6s66iRJE8C3yhg3qNyPfSa/rRTbbDmbD6Ae3aXbUztBiZEJ2Ti7cBYLTp733xgS0zCxQvOsdJUvTwj6fBxY3oSCLqaPsruSGYbgQ1CWx3x4LoZDoLEKiIGJStdwIJ1EDjvAF+IrqWfPP2h1V3vSgVtmI=
-  on:
-    branch: master
-    repo: netiam/acl
 notifications:
   email: false
 node_js:
-  - iojs-v2
+  - "iojs-v2"
+  - "iojs-v3"
+  - "4"
 before_script:
   - npm prune
 script:
   - npm run build
   - npm run test:coverage
-  - codeclimate-test-reporter < coverage/lcov.info
 after_success:
+  - codeclimate-test-reporter < coverage/lcov.info
   - npm run semantic-release
