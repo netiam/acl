@@ -1,7 +1,7 @@
 {
   "name": "netiam-oauth",
   "description": "An implementation of the OAuth 2.0 authorization framework",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "./bin/build",
     "clean": "./bin/clean",
