@@ -1,9 +1,16 @@
 import _ from 'lodash'
+import resource from './resource'
+import {
+  WILDCARD,
+  ALLOW,
+  DENY,
+  PRIV_READ
+} from './constants'
+import {
+  hierarchy
+} from './role'
 
 export default function acl(spec) {
-  const WILDCARD = '*'
-  const ALLOW = 'ALLOW'
-  const DENY = 'DENY'
   const {settings} = spec
   const {roles} = spec
   let o = {}
@@ -25,10 +32,6 @@ export default function acl(spec) {
 
     if (settings.fields && _.isObject(settings.fields)) {
       fields = fields.concat(Object.keys(settings.fields))
-    }
-
-    if (_.isFunction(resource.toObject)) {
-      resource = resource.toObject()
     }
 
     return Object
@@ -80,23 +83,6 @@ export default function acl(spec) {
     }
 
     return []
-  }
-
-  /**
-   * Get hierarchy for current role
-   * @param {Object} role
-   * @returns {[Object]}
-   */
-  function hierarchy(role) {
-    if (!role) {
-      return []
-    }
-
-    if (!role.parent) {
-      return [roles.get(role)]
-    }
-
-    return [roles.get(role)].concat(hierarchy(role.parent))
   }
 
   /**
@@ -166,9 +152,9 @@ export default function acl(spec) {
    * @param {Array} [asserts=[]]
    * @returns {[String]} A list of allowed keys for given collection
    */
-  function allowed(user, resource, role, privilege = 'R', asserts = []) {
+  function allowed(user, resource, role, privilege = PRIV_READ, asserts = []) {
     role = roles.get(role)
-    const roleHierarchy = hierarchy(role).reverse()
+    const roleHierarchy = hierarchy(roles, role).reverse()
     let allowedKeys = []
 
     if (!_.isArray(asserts)) {
@@ -207,7 +193,7 @@ export default function acl(spec) {
    * @param {Array} [asserts=[]]
    * @returns {Object}
    */
-  function filter(user, resource, role, privilege = 'R', asserts = []) {
+  function filter(user, resource, role, privilege = PRIV_READ, asserts = []) {
     const data = _.pick(
       resource,
       allowed(
@@ -252,56 +238,6 @@ export default function acl(spec) {
     })
 
     return data
-  }
-
-  /**
-   * Is role with privilege allowed to access resource
-   * @param {Object} role
-   * @param {String} [privilege='R']
-   * @returns {Boolean} True if allowed, otherwise false
-   */
-  function resource(role, privilege = 'R') {
-    if (!settings.resource) {
-      return false
-    }
-
-    if (!settings.resource[ALLOW]) {
-      return false
-    }
-
-    let isAllowed = false
-
-    role = roles.get(role)
-
-    // wildcard allow
-    if (settings.resource[ALLOW] && settings.resource[ALLOW][WILDCARD]) {
-      if (settings.resource[ALLOW][WILDCARD].indexOf(privilege) !== -1) {
-        isAllowed = true
-      }
-    }
-
-    // allow
-    if (settings.resource[ALLOW] && settings.resource[ALLOW][role.name]) {
-      if (settings.resource[ALLOW][role.name].indexOf(privilege) !== -1) {
-        isAllowed = true
-      }
-    }
-
-    // wildcard deny
-    if (settings.resource[DENY] && settings.resource[DENY][WILDCARD]) {
-      if (settings.resource[DENY][WILDCARD].indexOf(privilege) !== -1) {
-        isAllowed = false
-      }
-    }
-
-    // deny
-    if (settings.resource[DENY] && settings.resource[DENY][role.name]) {
-      if (settings.resource[DENY][role.name].indexOf(privilege) !== -1) {
-        isAllowed = false
-      }
-    }
-
-    return isAllowed
   }
 
   o.settings = settings
