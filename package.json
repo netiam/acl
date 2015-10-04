@@ -19,8 +19,7 @@
   },
   "keywords": [
     "ACL",
-    "Authorization",
-    "Server"
+    "Authorization"
   ],
   "author": "Hannes Moser <hannes@impossiblearts.com>",
   "license": "MIT",
