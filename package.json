@@ -1,6 +1,6 @@
 {
-  "name": "netiam-oauth",
-  "description": "An implementation of the OAuth 2.0 authorization framework",
+  "name": "netiam-acl",
+  "description": "ACL implementation",
   "main": "lib/index.js",
   "scripts": {
     "build": "./bin/build",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/netiam/acl.git"
+    "url": "https://github.com/netiam/acl.git"
   },
   "keywords": [
     "ACL",
