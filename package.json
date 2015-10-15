@@ -41,6 +41,6 @@
     "babel-runtime": "5.8.25",
     "debug": "2.2.0",
     "lodash": "3.10.1",
-    "netiam-errors": "2.3.0"
+    "netiam-errors": "2.4.0"
   }
 }
