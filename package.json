@@ -35,7 +35,7 @@
     "istanbul": "0.4.0",
     "mocha": "2.3.3",
     "semantic-release": "4.3.5",
-    "should": "8.0.0"
+    "should": "8.1.0"
   },
   "dependencies": {
     "babel-runtime": "6.0.2",
