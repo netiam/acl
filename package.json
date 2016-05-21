@@ -35,7 +35,7 @@
     "eslint": "2.10.1",
     "istanbul": "0.4.2",
     "semantic-release": "4.3.5",
-    "should": "8.3.2"
+    "should": "8.4.0"
   },
   "dependencies": {
     "babel-runtime": "6.9.0",
