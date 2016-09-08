@@ -30,18 +30,28 @@ const admin = {name: 'ADMIN'}
 The library do also support property filtering. You can define attributes and/or
 relationships that should be filtered by privileges.
 
-## Methods
+## Usage
 
+#### `acl.isAllowed(rules, role, privilege)`
 Check if access is allowed for role with privilege.
 
+*Arguments*
+* `rules`: A set of CRUD rules
+* `role`: A role object, e.g. `{name: 'USER'}`
+* `privilege`: One of `C`, `R`, `U`, `D`,
+
+*Example*
 ```js
 import acl from 'netiam-acl'
 import rules from './acl.json'
 
-acl.isAllowed(rules.resource, 'USER', 'R') // true
-acl.isDenied(rules.resource, 'USER', 'R') // false
+acl.isAllowed(rules.resource, user, 'R') // true
+acl.isDenied(rules.resource, user, 'R') // false
 ```
 
+*******
+
+#### `acl.filter(rules, properties, role, privilege)`
 Use this to filter properties by role and privilege. Be careful with the first
 parameter. It takes a hash of rules and not a complete ACL structure.
 
@@ -54,6 +64,7 @@ ACL attributes.
 If you use ACLs to filter a database result(-set) you might use your model
 definition to get all property names.
 
+*Example*
 ```json
 // rules.json
 {
@@ -78,11 +89,15 @@ definition to get all property names.
 import acl from 'netiam-acl'
 import rules from './rules.json'
 
-acl.filter(rules, ['email', 'password'], 'USER', 'R') // ['email']
+acl.filter(rules, ['email', 'password'], user, 'R') // ['email']
 ```
 
+*******
+
+#### `acl.normalize(ruleset)`
 Utility function to normalize ACL rules.
 
+*Example*
 ```js
 import acl from 'netiam-acl'
 
