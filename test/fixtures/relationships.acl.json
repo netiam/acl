@@ -1,0 +1,38 @@
+{
+  "asserts": {},
+  "transforms": {},
+  "resource": {},
+  "attributes": {},
+  "relationships": {
+    "*": {
+      "ALLOW": {
+        "ADMIN": "CRUD"
+      },
+      "DENY": {
+        "GUEST": "CRUD"
+      }
+    },
+    "name": {
+      "ALLOW": {
+        "GUEST": "CR",
+        "USER": "R"
+      }
+    },
+    "email": {
+      "ALLOW": {
+        "GUEST": "C",
+        "USER": "RU"
+      }
+    },
+    "pwd": {
+      "ALLOW": {
+        "GUEST": "C",
+        "OWNER": "RU"
+      },
+      "DENY": {
+        "ADMIN": "R",
+        "USER": "CRUD"
+      }
+    }
+  }
+}

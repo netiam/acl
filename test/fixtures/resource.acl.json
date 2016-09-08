@@ -1,0 +1,17 @@
+{
+  "asserts": {},
+  "transforms": {},
+  "resource": {
+    "ALLOW": {
+      "ADMIN": "CRUD",
+      "USER": "CR",
+      "OWNER": "UD",
+      "EDITOR": "CRU"
+    },
+    "DENY": {
+      "GUEST": "CRUD"
+    }
+  },
+  "attributes": {},
+  "relationships": {}
+}

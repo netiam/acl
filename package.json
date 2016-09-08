@@ -1,7 +1,7 @@
 {
   "name": "netiam-acl",
   "description": "ACL implementation",
-  "main": "lib/index.js",
+  "main": "lib/acl.js",
   "scripts": {
     "build": "./bin/build",
     "clean": "./bin/clean",
@@ -28,19 +28,17 @@
   },
   "homepage": "https://github.com/netiam/acl#readme",
   "devDependencies": {
-    "babel": "6.3.26",
+    "babel-cli": "^6.14.0",
     "babel-eslint": "6.1.2",
+    "babel-preset-es2015-node6": "^0.3.0",
     "codeclimate-test-reporter": "0.3.3",
-    "mocha": "3.0.1",
     "eslint": "3.4.0",
-    "istanbul": "0.4.4",
+    "istanbul": "^1.1.0-alpha.1",
+    "mocha": "3.0.1",
     "semantic-release": "4.3.5",
     "should": "11.0.0"
   },
   "dependencies": {
-    "babel-runtime": "6.11.6",
-    "debug": "2.2.0",
-    "lodash": "4.15.0",
-    "netiam-errors": "4.1.0"
+    "lodash": "4.15.0"
   }
 }
