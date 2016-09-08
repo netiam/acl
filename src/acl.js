@@ -204,7 +204,7 @@ function propertyType(o, name, role, privilege) {
  * @param {String} privilege One of C, R, U and D
  * @returns {Array.<string>} The filtered list, e.g. ['name']
  */
-function allowedProperties(o, properties, role, privilege) {
+function filter(o, properties, role, privilege) {
   const roles = hierarchy(role)
   const keys = []
   while (roles.length > 0) {
@@ -227,7 +227,7 @@ function allowedProperties(o, properties, role, privilege) {
 }
 
 export default Object.freeze({
-  allowedProperties,
+  filter,
   isAllowed,
   isDenied,
   normalize
