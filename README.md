@@ -42,13 +42,43 @@ acl.isAllowed(rules.resource, 'USER', 'R') // true
 acl.isDenied(rules.resource, 'USER', 'R') // false
 ```
 
-Filter given properties by role and privilege.
+Use this to filter properties by role and privilege. Be careful with the first
+parameter. It takes a hash of rules and not a complete ACL structure.
+
+The second parameter is a list of all possible property names. You can use
+something like `Object.keys(rules)` but this is not sufficient in all cases.
+If you use wildcards extensively, the `filter` method might never know the full
+list of property names and will therefore return just the names of the defined
+ACL attributes.
+
+If you use ACLs to filter a database result(-set) you might use your model
+definition to get all property names.
+
+```json
+// rules.json
+{
+  "*": {
+    "ALLOW": {
+      "ADMIN": "CRUD"
+    },
+    "DENY": {
+      "GUEST": "CRUD"
+    }
+  },
+  "name": {
+    "ALLOW": {
+      "GUEST": "CR",
+      "USER": "R"
+    }
+  }
+}
+```
 
 ```js
 import acl from 'netiam-acl'
-import rules from './acl.json'
+import rules from './rules.json'
 
-acl.filter(rules.attributes, ['email', 'password'], 'USER', 'R') // ['email']
+acl.filter(rules, ['email', 'password'], 'USER', 'R') // ['email']
 ```
 
 Utility function to normalize ACL rules.
