@@ -113,6 +113,8 @@ import acl from 'netiam-acl'
 acl.normalize({}) // {assets: {}, transforms: {}, resource: {}, attributes: {}, relationships: {}}
 ```
 
+*******
+
 ## Constants
 
 ```js
