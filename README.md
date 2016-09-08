@@ -48,7 +48,7 @@ Filter given properties by role and privilege.
 import acl from 'netiam-acl'
 import rules from './acl.json'
 
-acl.allowedProperties(rules.attributes, ['email', 'password'], 'USER', 'R') // ['email']
+acl.filter(rules.attributes, ['email', 'password'], 'USER', 'R') // ['email']
 ```
 
 Utility function to normalize ACL rules.
