@@ -64,6 +64,12 @@ ACL attributes.
 If you use ACLs to filter a database result(-set) you might use your model
 definition to get all property names.
 
+*Arguments*
+* `rules`: A set of CRUD rules
+* `properties`: A list of property names, e.g. `['name', 'email', …]`
+* `role`: A role object, e.g. `{name: 'USER'}`
+* `privilege`: One of `C`, `R`, `U`, `D`,
+
 *Example*
 ```json
 // rules.json
@@ -96,6 +102,9 @@ acl.filter(rules, ['email', 'password'], user, 'R') // ['email']
 
 #### `acl.normalize(ruleset)`
 Utility function to normalize ACL rules.
+
+*Arguments*
+* `ruleset`: A complete or partial ruleset
 
 *Example*
 ```js
