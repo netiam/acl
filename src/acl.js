@@ -235,3 +235,9 @@ export default Object.freeze({
   isDenied,
   normalize
 })
+
+// Ember, suck this!
+module.exports.filter = filter
+module.exports.isAllowed = isAllowed
+module.exports.isDenied = isDenied
+module.exports.normalize = normalize
