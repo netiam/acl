@@ -1,5 +1,8 @@
 import assert from 'assert'
-import _ from 'lodash'
+import isObject from 'lodash/isObject'
+import has from 'lodash/has'
+import get from 'lodash/get'
+import pull from 'lodash/pull'
 
 export const PRIV_CREATE = 'C'
 export const PRIV_READ = 'R'
@@ -28,23 +31,23 @@ export const WILDCARD = '*'
  * @returns {object}
  */
 function normalize(acl) {
-  if (!_.isObject(acl.asserts)) {
+  if (!isObject(acl.asserts)) {
     acl.asserts = {}
   }
 
-  if (!_.isObject(acl.transforms)) {
+  if (!isObject(acl.transforms)) {
     acl.transforms = {}
   }
 
-  if (!_.isObject(acl.resource)) {
+  if (!isObject(acl.resource)) {
     acl.resource = {}
   }
 
-  if (!_.isObject(acl.attributes)) {
+  if (!isObject(acl.attributes)) {
     acl.attributes = {}
   }
 
-  if (!_.isObject(acl.relationships)) {
+  if (!isObject(acl.relationships)) {
     acl.relationships = {}
   }
 
@@ -73,7 +76,7 @@ function normalize(acl) {
  * @return {Array} Flat list of roles, order is granularity:descending
  */
 function hierarchy(role) {
-  if (!_.isObject(role)) {
+  if (!isObject(role)) {
     return []
   }
   const roles = [role]
@@ -105,16 +108,16 @@ function isAllowed(resource, role, privilege) {
     role = roles.pop()
 
     // DENY
-    if (_.has(resource, `${DENY}.${role.name}`)) {
-      const privileges = _.get(resource, `${DENY}.${role.name}`)
+    if (has(resource, `${DENY}.${role.name}`)) {
+      const privileges = get(resource, `${DENY}.${role.name}`)
       if (privileges.includes(privilege)) {
         return false
       }
     }
 
     // ALLOW
-    if (_.has(resource, `${ALLOW}.${role.name}`)) {
-      const privileges = _.get(resource, `${ALLOW}.${role.name}`)
+    if (has(resource, `${ALLOW}.${role.name}`)) {
+      const privileges = get(resource, `${ALLOW}.${role.name}`)
       if (privileges.includes(privilege)) {
         return true
       }
@@ -151,7 +154,7 @@ function isDenied(resource, role, privilege) {
  * @param {string} name The name of the property
  * @param {Object} role The role to check the privilege against
  * @param {string} privilege The privilege
- * @returns {ALLOW|DENY|undefined} Returns undefined if no rule is found
+ * @returns {'ALLOW'|'DENY'|undefined} Returns undefined if no rule is found
  */
 function propertyType(o, name, role, privilege) {
   assert.ok(o)
@@ -160,32 +163,32 @@ function propertyType(o, name, role, privilege) {
   assert.ok(privilege)
 
   // DENY
-  if (_.has(o, `${name}.${DENY}.${role.name}`)) {
-    const privileges = _.get(o, `${name}.${DENY}.${role.name}`)
+  if (has(o, `${name}.${DENY}.${role.name}`)) {
+    const privileges = get(o, `${name}.${DENY}.${role.name}`)
     if (privileges.includes(privilege)) {
       return DENY
     }
   }
 
   // ALLOW
-  if (_.has(o, `${name}.${ALLOW}.${role.name}`)) {
-    const privileges = _.get(o, `${name}.${ALLOW}.${role.name}`)
+  if (has(o, `${name}.${ALLOW}.${role.name}`)) {
+    const privileges = get(o, `${name}.${ALLOW}.${role.name}`)
     if (privileges.includes(privilege)) {
       return ALLOW
     }
   }
 
   // WILDCARD DENY
-  if (_.has(o, `${WILDCARD}.${DENY}.${role.name}`)) {
-    const privileges = _.get(o, `${WILDCARD}.${DENY}.${role.name}`)
+  if (has(o, `${WILDCARD}.${DENY}.${role.name}`)) {
+    const privileges = get(o, `${WILDCARD}.${DENY}.${role.name}`)
     if (privileges.includes(privilege)) {
       return DENY
     }
   }
 
   // WILDCARD ALLOW
-  if (_.has(o, `${WILDCARD}.${ALLOW}.${role.name}`)) {
-    const privileges = _.get(o, `${WILDCARD}.${ALLOW}.${role.name}`)
+  if (has(o, `${WILDCARD}.${ALLOW}.${role.name}`)) {
+    const privileges = get(o, `${WILDCARD}.${ALLOW}.${role.name}`)
     if (privileges.includes(privilege)) {
       return ALLOW
     }
@@ -221,7 +224,7 @@ function filter(o, properties, role, privilege) {
       }
     })
     keys.push(...allowed)
-    _.pull(keys, ...denied)
+    pull(keys, ...denied)
   }
   return keys
 }
