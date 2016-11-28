@@ -36,7 +36,7 @@
     "istanbul": "^1.1.0-alpha.1",
     "mocha": "3.1.2",
     "semantic-release": "4.3.5",
-    "should": "11.0.0"
+    "should": "11.1.0"
   },
   "dependencies": {
     "lodash": "4.17.1"
