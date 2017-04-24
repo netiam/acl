@@ -34,7 +34,7 @@
     "codeclimate-test-reporter": "0.4.1",
     "eslint": "3.14.1",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "3.2.0",
+    "mocha": "3.3.0",
     "semantic-release": "6.3.2",
     "should": "11.2.1"
   },
